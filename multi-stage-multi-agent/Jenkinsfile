@@ -12,7 +12,7 @@ pipeline {
            stage('Compile') {
             agent {
                 docker {
-                    image 'openjdk:17-alpine'
+                    image 'openjdk:21-alpine'
                 }
             }
             steps {
@@ -23,7 +23,7 @@ pipeline {
         stage('Run') {
             agent {
                 docker {
-                    image 'openjdk:17-alpine'
+                    image 'openjdk:21-alpine'
                 }
             }
             steps {
