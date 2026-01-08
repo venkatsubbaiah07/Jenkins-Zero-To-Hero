@@ -9,23 +9,29 @@ pipeline {
         sh 'mvn --version'
       }
     }
-      stage('Compile') {
-        agent { 
-        docker { image 'node:16-alpine' }
-                sh 'javac HelloWorld.java'
-            }
+  stage('Compile') {
+    agent {
+        docker {
+            image 'eclipse-temurin:21-jdk'
         }
-        stage('Run using Docker') {
-            steps {
-                sh '''
-                  docker run --rm \
-                    -v "$PWD":/app \
-                    -w /app \
-                    eclipse-temurin:21-jdk \
-                    java HelloWorld
-                '''
-            }
-        }
+    }
+    steps {
+        sh 'javac HelloWorld.java'
+    }
+}
+
+stage('Run using Docker') {
+    agent any
+    steps {
+        sh '''
+          docker run --rm \
+            -v "$PWD":/app \
+            -w /app \
+            eclipse-temurin:21-jdk \
+            java HelloWorld
+        '''
+    }
+}
     stage('Front-end') {
       agent {
         docker { image 'node:16-alpine' }
