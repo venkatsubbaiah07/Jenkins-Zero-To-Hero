@@ -9,25 +9,25 @@ pipeline {
         sh 'mvn --version'
       }
     }
-    stage('Compile Java') {
+           stage('Compile') {
             agent {
-                label 'java-build'
+                docker {
+                    image 'openjdk:17-alpine'
+                }
             }
             steps {
-                sh '''
-                  javac HelloWorld.java
-                '''
+                sh 'javac HelloWorld.java'
             }
         }
 
-        stage('Run Java') {
+        stage('Run') {
             agent {
-                label 'java-run'
+                docker {
+                    image 'openjdk:17-alpine'
+                }
             }
             steps {
-                sh '''
-                  java HelloWorld
-                '''
+                sh 'java HelloWorld'
             }
         }
     stage('Front-end') {
