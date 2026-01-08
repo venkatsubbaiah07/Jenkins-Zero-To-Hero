@@ -11,7 +11,9 @@ pipeline {
     }
   stage('Checkout') {
             steps {
-                checkout scm
+              node {         // <-- wrap steps in a node block
+                    checkout scm
+                }
             }
         }
   stage('Compile') {
