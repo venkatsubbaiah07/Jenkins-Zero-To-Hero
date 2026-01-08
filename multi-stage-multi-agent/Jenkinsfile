@@ -9,12 +9,12 @@ pipeline {
         sh 'mvn --version'
       }
     }
-      //stage('Compile') {
-            steps {
+      stage('Compile') {
+        agent { 
+        docker { image 'node:16-alpine' }
                 sh 'javac HelloWorld.java'
             }
         }
-//
         stage('Run using Docker') {
             steps {
                 sh '''
