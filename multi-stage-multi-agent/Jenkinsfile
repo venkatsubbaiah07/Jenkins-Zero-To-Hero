@@ -9,12 +9,12 @@ pipeline {
         sh 'mvn --version'
       }
     }
-          stage('Compile') {
+      //stage('Compile') {
             steps {
                 sh 'javac HelloWorld.java'
             }
         }
-
+//
         stage('Run using Docker') {
             steps {
                 sh '''
