@@ -1,0 +1,21 @@
+pipeline {
+    agent {
+        docker { 
+            // CHANGE: Ensure you use a 'jdk' tag, not just 'jre' or a generic slim image
+            image 'openjdk:21-jdk-slim' 
+        }
+    }
+    stages {
+        stage('Compile') {
+            steps {
+                // This will now find 'javac' because you are using a JDK image
+                sh 'javac HelloWorld.java'
+            }
+        }
+        stage('Execute') {
+            steps {
+                sh 'java HelloWorld'
+            }
+        }
+    }
+}
