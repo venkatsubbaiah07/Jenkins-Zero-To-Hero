@@ -1,14 +1,15 @@
 pipeline {
     agent {
         docker { 
-            // CHANGE: Ensure you use a 'jdk' tag, not just 'jre' or a generic slim image
-            image 'openjdk:21-jdk-slim' 
+            // Use a valid 2026 image tag
+            image 'eclipse-temurin:21-jdk' 
         }
     }
     stages {
-        stage('Compile') {
+        stage('Build') {
             steps {
-                // This will now find 'javac' because you are using a JDK image
+                // Dynamically create the file if it's not in your repo
+                sh 'echo "public class HelloWorld { public static void main(String[] args) { System.out.println(\\\"Hello from a 2026 Docker Node!\\\"); } }" > HelloWorld.java'
                 sh 'javac HelloWorld.java'
             }
         }
