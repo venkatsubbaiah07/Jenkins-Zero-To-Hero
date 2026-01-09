@@ -9,6 +9,24 @@ pipeline {
         sh 'mvn --version'
       }
     }
+    stage('Compile') {
+      agent {
+        docker { image 'node:16-alpine' }
+      }
+      steps {
+                // Compiles the Java file
+                sh 'javac HelloWorld.java'
+            }
+        }
+    stage('Execute') {
+      agent {
+        docker { image 'node:16-alpine' }
+      }
+        steps {
+                // Runs the compiled class
+                sh 'java HelloWorld'
+            }
+        }
     stage('Front-end') {
       agent {
         docker { image 'node:16-alpine' }
